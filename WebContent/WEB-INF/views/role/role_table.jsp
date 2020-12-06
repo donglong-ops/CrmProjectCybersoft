@@ -1,13 +1,11 @@
-<%@page import="com.myclass.dto.UserDto"%>
+<%@page import="com.myclass.entity.Role"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
-<%
-	String contextPath = request.getContextPath();
-	List<UserDto> users = (List<UserDto>) request.getAttribute("users");
-%>
 <!DOCTYPE html>
+<%
+	List<Role> roles = (List<Role>) request.getAttribute("roles");
+%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -15,18 +13,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" type="image/png" sizes="16x16" href="static/plugins/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="static/plugins/images/favicon.png">
 <title>Pixel Admin</title>
 <!-- Bootstrap Core CSS -->
-<link href="static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="static/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- Menu CSS -->
 <link
-	href="static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-<link rel="stylesheet"href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	href="static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <!-- animation CSS -->
 <link href="static/css/animate.css" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="static/css/style.css" rel="stylesheet"> 
+<link href="static/css/style.css" rel="stylesheet">
 <!-- color CSS -->
 <link href="static/css/colors/blue-dark.css" id="theme" rel="stylesheet">
 <link rel="stylesheet" href="static/css/custom.css">
@@ -36,7 +38,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-</head>
 <body>
 	<!-- Preloader -->
 	<div class="preloader">
@@ -76,10 +77,10 @@
 								class="hidden-xs">Cybersoft</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="<%= request.getContextPath() %>/user/info">Thông tin cá nhân</a></li>
+								<li><a href="<%=request.getContextPath()%>/user/info">Thông tin cá nhân</a></li>
 								<li><a href="#">Thống kê công việc</a></li>
 								<li class="divider"></li>
-								<li><a href="<%= request.getContextPath() %>/logout">Đăng xuất</a></li>
+								<li><a href="<%=request.getContextPath()%>/logout">Đăng xuất</a></li>
 							</ul>
 						</div>
 					</li>
@@ -93,19 +94,19 @@
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse slimscrollsidebar">
 				<ul class="nav" id="side-menu">
-					<li style="padding: 10px 0 0;"><a href="<%=contextPath%>/home"
+					<li style="padding: 10px 0 0;"><a href="<%=request.getContextPath()%>/home"
 						class="waves-effect"><i class="fa fa-clock-o fa-fw"
 							aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-					<li><a href="<%=contextPath%>/user" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/user" class="waves-effect"><i
 							class="fa fa-user fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Thành viên</span></a></li>
-					<li><a href="<%=contextPath%>/role" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/role" class="waves-effect"><i
 							class="fa fa-modx fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Quyền</span></a></li>
-					<li><a href="<%=contextPath%>/job" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/job" class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Dự án</span></a></li>
-					<li><a href="<%=contextPath%>/task" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/task" class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Công việc</span></a></li>
 					<li><a href="<%=request.getContextPath()%>/blank" class="waves-effect"><i
@@ -123,10 +124,10 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Danh sách thành viên</h4>
+						<h4 class="page-title">Danh sách quyền</h4>
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-						<a href="<%=contextPath%>/user/add" class="btn btn-sm btn-success">Thêm mới</a>
+						<a href="<%= request.getContextPath() %>/role/add" class="btn btn-sm btn-success">Thêm mới</a>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -139,26 +140,22 @@
 									<thead>
 										<tr>
 											<th>STT</th>
-											<th>Full Name</th>
-											<th>Email</th>
-											<th>Rode</th>
-											<th>#</th>
+											<th>Tên Quyền</th>
+											<th>Mô Tả</th>
+											<th>Hành Động</th>
 										</tr>
 									</thead>
 									<tbody>
 										<%
-											for (UserDto user : users) {
+											for (Role item : roles) {
 										%>
 										<tr>
-											<td><%=user.getId()%></td>
-											<td><%=user.getFullname()%></td>
-											<td><%=user.getEmail()%></td>
-											<td><%=user.getRoleDec()%></td>
-											<td>
-												<a href="<%=contextPath%>/user/edit?id=<%=user.getId()%>"class="btn btn-sm btn-primary">Sửa</a> 
-												<a href="<%=contextPath%>/user/delete?id=<%=user.getId()%>"class="btn btn-sm btn-danger">Xóa</a> 
-												<a href="<%= request.getContextPath() %>/user/detail" class="btn btn-sm btn-info">Xem</a>
-											</td>
+											<td><%=item.getId()%></td>
+											<td><%=item.getName()%></td>
+											<td><%=item.getDescription()%></td>
+											<td><a href="#" class="btn btn-sm btn-info"> <i class="fa fa-pencil-square-o"></i>
+											</a><a href="#" class="btn btn-sm btn-danger"> <i class="fa fa-trash-o"></i>
+											</a></td>
 										</tr>
 										<%
 											}
@@ -179,19 +176,23 @@
 	</div>
 	<!-- /#wrapper -->
 	<!-- jQuery -->
-	<script src="<%= request.getContextPath() %>/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="<%= request.getContextPath() %>/static/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/static/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- Menu Plugin JavaScript -->
 	<script
-		src="<%= request.getContextPath() %>/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+		src="<%=request.getContextPath()%>/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
 	<!--slimscroll JavaScript -->
-	<script src="<%= request.getContextPath() %>/static/js/jquery.slimscroll.js"></script>
-	<script src="<%= request.getContextPath() %>/static/js/jquery.dataTables.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/static/js/jquery.slimscroll.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/static/js/jquery.dataTables.js"></script>
 	<!--Wave Effects -->
-	<script src="<%= request.getContextPath() %>/static/js/waves.js"></script>
+	<script src="<%=request.getContextPath()%>/static/js/waves.js"></script>
 	<!-- Custom Theme JavaScript -->
-	<script src="<%= request.getContextPath() %>/static/js/custom.min.js"></script>
+	<script src="<%=request.getContextPath()%>/static/js/custom.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('#example').DataTable();

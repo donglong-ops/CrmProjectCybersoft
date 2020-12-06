@@ -19,7 +19,7 @@ import com.myclass.repository.RoleRepository;
 import com.myclass.repository.UserRepository;
 import com.myclass.service.UserService;
 
-@WebServlet(urlPatterns = { "/login", "/logout" })
+@WebServlet(name = "authServlet",urlPatterns = { "/login", "/logout" })
 public class AuthController extends HttpServlet {
 	private UserService userService = null;
 	public AuthController() {
@@ -30,7 +30,6 @@ public class AuthController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String action = req.getServletPath();
-
 		switch (action) {
 		case "/login":
 			req.getRequestDispatcher("/WEB-INF/views/auth/loginPage.jsp").forward(req, resp);
@@ -54,7 +53,7 @@ public class AuthController extends HttpServlet {
 
 		UserDto userDto = userService.checkLogin(email, pass);
 		if (userDto == null) {
-			req.setAttribute("message", "Email hoặc mật khẩu không đúng!");
+			req.setAttribute("message", "Invalid Email or Password!");
 			req.getRequestDispatcher("/WEB-INF/views/auth/loginPage.jsp").forward(req, resp);
 			return;
 		}

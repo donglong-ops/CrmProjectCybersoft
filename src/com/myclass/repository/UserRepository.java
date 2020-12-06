@@ -106,8 +106,7 @@ public class UserRepository {
 	public int update(User user) {
 		try {
 			Connection conn = JDBCConnection.getConnection();
-			PreparedStatement statement = conn.prepareStatement(
-					"UPDATE users SET email = ?, password = ?, fullname = ?, avatar = ?, role_id = ? WHERE id = ? ");
+			PreparedStatement statement = conn.prepareStatement("UPDATE users SET email = ?, password = ?, fullname = ?, avatar = ?, role_id = ? WHERE id = ? ");
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getFullname());
@@ -115,6 +114,18 @@ public class UserRepository {
 			statement.setInt(5, user.getRoleId());
 			statement.setInt(6, user.getId());
 
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public int deleteUser(int idDelete) {
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement("Delete from users WHERE id = ? ");
+			statement.setInt(1, idDelete);
 			return statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

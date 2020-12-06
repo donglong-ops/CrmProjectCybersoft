@@ -18,10 +18,8 @@ public class ErrorController extends HttpServlet{
 		
 		switch (action) {
 		case "/error/403":
-			req.getRequestDispatcher("/WEB-INF/views/error/403.jsp")
-			.forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/error/403.jsp").forward(req, resp);
 			break;
-
 		default:
 			break;
 		}

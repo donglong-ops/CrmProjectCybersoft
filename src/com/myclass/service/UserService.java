@@ -3,7 +3,6 @@ package com.myclass.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mindrot.jbcrypt.BCrypt;
 
 import com.myclass.dto.UserDto;
 import com.myclass.entity.Role;
@@ -23,13 +22,10 @@ public class UserService {
 	
 	public List<UserDto> getAll() {
 		List<UserDto> userDtos = new ArrayList<UserDto>();
-		// Lấy dữ liệu từ Repository (entity)
 		List<User> entities = userRepository.findAll();
-		// Đổ dữ liệu từ ENTITY vào DTO
 		for (User user : entities) {
 			
 			Role role = roleRepository.findById(user.getRoleId());
-			
 			UserDto dto = new UserDto();
 			dto.setId(user.getId());
 			dto.setEmail(user.getEmail());
@@ -37,7 +33,6 @@ public class UserService {
 			dto.setRoleDec(role.getDescription());
 			userDtos.add(dto);
 		}
-		// Trả về DTO
 		return userDtos;
 	}
 	
@@ -48,9 +43,6 @@ public class UserService {
 	public UserDto checkLogin(String email, String pass) {
 		User user = userRepository.findByEmail(email);
 		if(user == null) return null;
-		
-//		boolean result = BCrypt.checkpw(pass, user.getPassword());
-//		if(!result) return null;
 		
 		Role role = roleRepository.findById(user.getRoleId());
 		

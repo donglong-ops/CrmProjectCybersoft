@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.myclass.constants.SessionConstants;
 import com.myclass.constants.UrlConstant;
 import com.myclass.entity.Role;
 import com.myclass.entity.User;
@@ -20,21 +21,19 @@ import com.myclass.repository.UserRepository;
 import com.myclass.service.RoleService;
 import com.myclass.service.UserService;
 
-@WebServlet(name = "userServlet", urlPatterns = { "/user", "/user/add", UrlConstant.URL_ROLE_EDIT, "/user/delete" })
+@WebServlet(name = "userServlet", urlPatterns = { "/user", "/user/add", "/user/edit", "/user/delete","/user/info", "/user/detail", "/user/profile_edit"})
 public class UserController extends HttpServlet {
 
 	private RoleRepository roleRepository = null;
 	private UserRepository userRepository = null;
 	
 	private UserService userService = null;
-	private RoleService roleService = null;
 
 	public UserController() {
 		roleRepository = new RoleRepository();
 		userRepository = new UserRepository();
 		
 		userService = new UserService();
-		roleService = new RoleService();
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class UserController extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/views/user/user_table.jsp").forward(req, resp);
 			break;
 		case "/user/add":
-			req.setAttribute("roles", roleService.getAll());
+			req.setAttribute("roles", roleRepository.findAll());
 			req.getRequestDispatcher("/WEB-INF/views/user/user_add.jsp").forward(req, resp);
 			break;
 		case "/user/edit":
@@ -59,7 +58,23 @@ public class UserController extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/views/user/user_edit.jsp").forward(req, resp);
 			break;
 		case "/user/delete":
-
+			int idDelete = Integer.valueOf(req.getParameter("id"));
+			userRepository.deleteUser(idDelete);
+			resp.sendRedirect(req.getContextPath() + "/user");
+			break;
+		case "/user/info":
+			
+			req.getRequestDispatcher("/WEB-INF/views/user/profile.jsp").forward(req, resp);
+			break;
+			
+		case "/user/detail":
+			
+			req.getRequestDispatcher("/WEB-INF/views/user/user_detail.jsp").forward(req, resp);
+			break;
+			
+		case "/user/profile_edit":
+			
+			req.getRequestDispatcher("/WEB-INF/views/user/profile_edit.jsp").forward(req, resp);
 			break;
 		default:
 			break;
@@ -72,12 +87,13 @@ public class UserController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 
 		String action = req.getServletPath();
-
+		
+		String fullname = req.getParameter("fullname");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		String fullname = req.getParameter("fullname");
 		String avatar = req.getParameter("avatar");
 		int roleId = Integer.valueOf(req.getParameter("roleId"));
+
 
 		switch (action) {
 		case "/user/add":
@@ -86,7 +102,7 @@ public class UserController extends HttpServlet {
 			userRepository.save(user);
 			resp.sendRedirect(req.getContextPath() + "/user");
 			break;
-		case UrlConstant.URL_ROLE_EDIT:
+		case "/user/edit":
 			int id = Integer.valueOf(req.getParameter("id"));
 			User userEdit = userRepository.findById(id);
 			userEdit.setEmail(email);
@@ -94,11 +110,8 @@ public class UserController extends HttpServlet {
 			userEdit.setAvatar(avatar);
 			userEdit.setRoleId(roleId);
 
-			// KIỂM TRA XEM NGƯỜI DÙNG NHẬP MẬT KHẨU MỚI KHÔNG
 			if (password != null && !password.isEmpty()) {
-				// MÃ HÓA MẬT KHẨU
 				String hashed2 = BCrypt.hashpw(password, BCrypt.gensalt(12));
-				// CẬP NHẬT THÔNG TIN USER (BAO GỒM CẢ KHẨU)
 				userEdit.setPassword(hashed2);
 			}
 			userRepository.update(userEdit);
