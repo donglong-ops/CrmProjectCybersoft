@@ -1,12 +1,13 @@
 package com.myclass.entity;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
 
 public class Task {
 	private int id;
 	private String name;
-	private Timestamp start_date;
-	private Timestamp end_date;
+	private Date start_date;
+	private Date end_date;
 	private int user_id;
 	private int job_id;
 	private int status_id;
@@ -14,7 +15,7 @@ public class Task {
 	public Task() {}
 	
 
-	public Task(int id, String name, Timestamp start_date, Timestamp end_date, int user_id, int job_id, int status_id) {
+	public Task(int id, String name, Date start_date, Date end_date, int user_id, int job_id, int status_id) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,7 +26,15 @@ public class Task {
 		this.status_id = status_id;
 	}
 
-
+	public Task(String name, Date start_date, Date end_date, int user_id, int job_id, int status_id) {
+		super();
+		this.name = name;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.user_id = user_id;
+		this.job_id = job_id;
+		this.status_id = status_id;
+	}
 
 
 	public int getId() {
@@ -44,19 +53,19 @@ public class Task {
 		this.name = name;
 	}
 
-	public Timestamp getStart_date() {
+	public Date getStart_date() {
 		return start_date;
 	}
 
-	public void setStart_date(Timestamp start_date) {
+	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
 
-	public Timestamp getEnd_date() {
+	public Date getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(Timestamp end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 

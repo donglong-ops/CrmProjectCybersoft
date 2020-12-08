@@ -67,8 +67,8 @@
                                     <b class="hidden-xs">Cybersoft</b> 
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<%= request.getContextPath() %>/user/info">Thông tin cá nhân</a></li>
-                                    <li><a href="#">Thống kê công việc</a></li>
+                                    <li><a href="<%= request.getContextPath() %>/user/view">Thông tin cá nhân</a></li>
+                                    <li><a href="<%= request.getContextPath() %>/user/info">Thống kê công việc</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<%= request.getContextPath() %>/logout">Đăng xuất</a></li>
                                 </ul>

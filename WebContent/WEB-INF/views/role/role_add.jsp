@@ -72,8 +72,8 @@
 								class="hidden-xs">Cybersoft</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="<%=request.getContextPath()%>/user/info">Thông tin cá nhân</a></li>
-								<li><a href="#">Thống kê công việc</a></li>
+								<li><a href="<%= request.getContextPath() %>/user/view">Thông tin cá nhân</a></li>
+								<li><a href="<%= request.getContextPath() %>/user/info">Thống kê công việc</a></li>
 								<li class="divider"></li>
 								<li><a href="<%=request.getContextPath()%>/logout">Đăng xuất</a></li>
 							</ul>
@@ -128,18 +128,17 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="<%=request.getContextPath()%>/role/add" method="Post">
                                 <div class="form-group">
                                     <label class="col-md-12">Tên quyền</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Tên quyền"
-                                            class="form-control form-control-line" />
+                                        <input type="text" placeholder="Tên quyền" class="form-control form-control-line" name="name"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Mô tả</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Mô tả" class="form-control form-control-line" />
+                                        <input type="text" placeholder="Mô tả" class="form-control form-control-line" name="desc"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.myclass.entity.Role;
+import com.myclass.entity.User;
 import com.myclass.repository.RoleRepository;
 
 @WebServlet(name = "roleServlet", urlPatterns = { "/role", "/role/add", "/role/edit", "/role/delete" })
@@ -37,7 +38,19 @@ public class RoleController extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/views/role/role_add.jsp").forward(req, resp);
 			break;
 		case "/role/edit":
-			req.getRequestDispatcher("/WEB-INF/views/role/edit.jsp").forward(req, resp);
+			int id = Integer.valueOf(req.getParameter("id"));
+			Role role = roleRepository.findById(id);
+			req.setAttribute("roleDto", role);
+			req.getRequestDispatcher("/WEB-INF/views/role/role_edit.jsp").forward(req, resp);
+			break;
+		case "/role/delete":
+			int idDelete = Integer.valueOf(req.getParameter("id"));
+			try {
+				roleRepository.deleteRole(idDelete);
+			} catch (Exception e) {
+				System.out.println("Can't Delete This Role");
+			}			
+			resp.sendRedirect(req.getContextPath() + "/role");
 			break;
 		default:
 			break;
@@ -46,28 +59,39 @@ public class RoleController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// B1: Lấy thông tin từ form
-		String name = req.getParameter("name");
-		String desc = req.getParameter("desc");
-		// B2: G�?i hàm save để thực thi câu lệnh thêm mới
-		Role role = new Role();
-		role.setName(name);
-		role.setDescription(desc);
 
-		int result = roleRepository.save(role);
+		String action = req.getServletPath();
 
-		// TH1: THêm mơí thành công
-		// => Chuyển hướng v�? trang danh sách
-		if (result != -1) {
-			resp.sendRedirect(req.getContextPath() + "/role");
-		} else {
-			// TH2: Thêm mới thất bại
-			// => CHuyển tiếp v�? trang add.jsp => Thông báo cho ngư�?i dùng
-			req.setAttribute("message", "Thêm mới thất bại!");
-			req.getRequestDispatcher("/WEB-INF/views/role/add.jsp").forward(req, resp);
+		switch (action) {
+		case "/role/add":
+			String name = req.getParameter("name");
+			String desc = req.getParameter("desc");
+
+			int result = roleRepository.save(new Role( name, desc));
+			if (result != -1) {
+				resp.sendRedirect(req.getContextPath() + "/role");
+			} else {
+				req.setAttribute("message", "Thêm mới thất bại!");
+				req.getRequestDispatcher("/WEB-INF/views/role/role_add.jsp").forward(req, resp);
+			}
+			break;
+		case "/role/edit":
+			int id = Integer.valueOf(req.getParameter("id"));
+			String nameRole = req.getParameter("name");
+			String des = req.getParameter("desc");
+			Role dto = new Role(id, nameRole, des);
+			if(des.length() > 0 && nameRole.length() > 0) {
+				roleRepository.updateRole(dto);
+				resp.sendRedirect(req.getContextPath() + "/role");
+			}else {
+				Role role = roleRepository.findById(id);
+				req.setAttribute("roleDto", role);
+				req.setAttribute("errorUpdate", "Không thể Update");
+				req.getRequestDispatcher("/WEB-INF/views/role/role_edit.jsp").forward(req, resp);
+			}
+			break;
+		default:
+			break;
 		}
-//	case "/role/delete": switch case and xóa 
-//
-//		break;
 	}
 }

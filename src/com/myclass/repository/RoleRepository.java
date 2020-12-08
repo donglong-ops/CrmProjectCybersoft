@@ -61,4 +61,28 @@ public class RoleRepository {
 		}
 		return -1;
 	}
+	public int deleteRole(int idDelete) {
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement("Delete from roles WHERE id = ? ");
+			statement.setInt(1, idDelete);
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public void updateRole(Role dto) {
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement("Update roles set name = ? , description = ? WHERE id = ? ");
+			statement.setString(1, dto.getName());
+			statement.setString(2, dto.getDescription());
+			statement.setInt(3, dto.getId());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -19,7 +19,7 @@ public class JobRepository {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM Jobs");
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				Job job = new Job(resultSet.getInt("id"), resultSet.getString("name"),resultSet.getTimestamp("start_date"),resultSet.getTimestamp("end_date"));
+				Job job = new Job(resultSet.getInt("id"), resultSet.getString("name"),resultSet.getDate("start_date"),resultSet.getDate("end_date"));
 				Jobs.add(job);
 			}
 		} catch (SQLException e) {
@@ -35,7 +35,7 @@ public class JobRepository {
 			statement.setInt(1, id);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				job = new Job(resultSet.getInt("id"), resultSet.getString("name"),resultSet.getTimestamp("start_date"),resultSet.getTimestamp("end_date"));
+				job = new Job(resultSet.getInt("id"), resultSet.getString("name"),resultSet.getDate("start_date"),resultSet.getDate("end_date"));
 				break;
 			}
 		} catch (SQLException e) {
@@ -46,12 +46,37 @@ public class JobRepository {
 	public int save(Job job) {
 		try {
 			Connection conn = JDBCConnection.getConnection();
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO jobs(id, name, start_date, end_date) VALUES(?, ?, ?, ?)");
-			statement.setInt(1, job.getId());
-			statement.setString(2, job.getName());
-			statement.setTimestamp(3, job.getStart_date());
-			statement.setTimestamp(4, job.getStart_date());
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO jobs(name, start_date, end_date) VALUES(?, ?, ?)");
+			statement.setString(1, job.getName());
+			statement.setDate(2, job.getStart_date());
+			statement.setDate(3, job.getEnd_date());
 
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int deleteJob(int idDelete) {
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement("Delete from jobs WHERE id = ? ");
+			statement.setInt(1, idDelete);
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int updateJob(Job job) {
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement(""
+					+ "update jobs set name = ?,start_date = ? ,end_date= ? WHERE id = ? ");
+			statement.setString(1, job.getName());
+			statement.setDate(2, job.getStart_date());
+			statement.setDate(3, job.getEnd_date());
+			statement.setInt(4, job.getId());
 			return statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

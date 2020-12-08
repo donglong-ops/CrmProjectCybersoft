@@ -1,5 +1,6 @@
 package com.myclass.dto;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class TaskDto {
@@ -7,15 +8,15 @@ public class TaskDto {
 	private String nameTask;
 	private String nameJob;
 	private String nameUser;
-	private Timestamp start_date;
-	private Timestamp end_date;
+	private Date start_date;
+	private Date end_date;
 	private String statusName;
 	
 	public TaskDto() {
 		
 	}
 	
-	public TaskDto(int id, String nameTask, String nameJob, String nameUser, Timestamp start_date, Timestamp end_date,String statusName) {
+	public TaskDto(int id, String nameTask, String nameJob, String nameUser, Date start_date, Date end_date,String statusName) {
 		super();
 		this.id = id;
 		this.nameTask = nameTask;
@@ -26,6 +27,15 @@ public class TaskDto {
 		this.statusName = statusName;
 	}
 
+	public TaskDto(int id, String nameTask, String nameJob, Date start_date, Date end_date,String statusName) {
+		super();
+		this.id = id;
+		this.nameTask = nameTask;
+		this.nameJob = nameJob;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.statusName = statusName;
+	}
 
 
 	public int getId() {
@@ -52,16 +62,16 @@ public class TaskDto {
 	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
 	}
-	public Timestamp getStart_date() {
+	public Date getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(Timestamp start_date) {
+	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
-	public Timestamp getEnd_date() {
+	public Date getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(Timestamp end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 	public String getStatusName() {

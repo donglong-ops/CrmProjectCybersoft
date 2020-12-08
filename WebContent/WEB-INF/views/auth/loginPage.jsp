@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bootstrap Example</title>
+<title>Login Page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -16,13 +16,13 @@
 				<div class="p-4 border mt-4">
 					<form action="<%=request.getContextPath()%>/login" method="POST">
 						<div class="form-group">
-							<label>Email</label> <input type="email" class="form-control" name="email">
+							<label>Email</label> <input type="email" class="form-control" name="email" value="${param.email}">
 						</div>
 						<div class="form-group">
 							<label>Mật khẩu</label> <input type="password" class="form-control" name="password">
 						</div>
-						<button type="submit" class="btn btn-primary">Đăng nhập</button>
-						<p>${ message }</p>
+						<p style="color: red">${ message }</p>
+						<button type="submit" class="btn btn-primary"> Đăng nhập</button>
 					</form>
 				</div>
 			</div>

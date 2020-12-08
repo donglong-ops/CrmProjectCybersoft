@@ -20,6 +20,14 @@ public class UserDto {
 		this.avatar = avatar;
 		this.roleDec = roleDec;
 	}
+	public UserDto(int id, String email, String fullname, String avatar, String roleDec) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.fullname = fullname;
+		this.avatar = avatar;
+		this.roleDec = roleDec;
+	}
 
 	public int getId() {
 		return id;

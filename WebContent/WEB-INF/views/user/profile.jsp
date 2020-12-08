@@ -1,6 +1,12 @@
+<%@page import="com.myclass.dto.TaskDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
+<%
+	String contextPath = request.getContextPath();
+	List<TaskDto> tasks = (List<TaskDto>) request.getAttribute("taskofUser");
+%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -69,8 +75,8 @@
                                 <b class="hidden-xs">Cybersoft</b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<%= request.getContextPath() %>/user/info">Thông tin cá nhân</a></li>
-                                <li><a href="#">Thống kê công việc</a></li>
+                                <li><a href="<%= request.getContextPath() %>/user/view">Thông tin cá nhân</a></li>
+                                <li><a href="<%= request.getContextPath() %>/user/info">Thống kê công việc</a></li>
                                 <li class="divider"></li>
                                 <li><a href="<%= request.getContextPath() %>/logout">Đăng xuất</a></li>
                             </ul>
@@ -152,7 +158,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                            <h3 class="counter text-right m-t-15 text-danger text-center">${waiting}</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i data-icon="E" class="linea-icon linea-basic"></i>
@@ -174,7 +180,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                            <h3 class="counter text-right m-t-15 text-megna text-center">${doing} </h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -196,7 +202,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                            <h3 class="counter text-right m-t-15 text-primary text-center">${done} </h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -238,28 +244,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đã hoàn thành</td>
+                                  <%
+											for (TaskDto task : tasks) {
+										%>
+										<tr>
+											<td><%=task.getId()%></td>
+											<td><%=task.getNameTask()%></td>
+											<td><%=task.getNameJob()%></td>
+											<td><%=task.getStart_date()%></td>
+											<td><%=task.getEnd_date()%></td>
+											<td><%=task.getStatusName()%></td>
                                             <td>
-                                                <a href="<%= request.getContextPath() %>/user/profile_edit" class="btn btn-sm btn-primary">Cập nhật</a>
+                                                <a href="<%= request.getContextPath() %>/user/profile_edit?id=<%=task.getId() %>" class="btn btn-sm btn-primary">Cập nhật</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế database</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đang thực hiện</td>
-                                            <td>
-                                                <a href="<%= request.getContextPath() %>/user/profile_edit" class="btn btn-sm btn-primary">Cập nhật</a>
-                                            </td>
-                                        </tr>
+                                        <%} %>
                                     </tbody>
                                 </table>
                             </div>

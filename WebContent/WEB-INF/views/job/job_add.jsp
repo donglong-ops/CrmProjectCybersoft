@@ -74,8 +74,8 @@
                                     <b class="hidden-xs">Cybersoft</b> 
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<%=contextPath%>/user/info">Thông tin cá nhân</a></li>
-                                    <li><a href="#">Thống kê công việc</a></li>
+                                    <li><a href="<%=contextPath%>/user/view">Thông tin cá nhân</a></li>
+                                    <li><a href="<%=contextPath%>/user/info">Thống kê công việc</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<%=contextPath%>/logout">Đăng xuất</a></li>
                                 </ul>
@@ -137,29 +137,30 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="<%=contextPath%>/job/add" method="POST">
                                 <div class="form-group">
                                     <label class="col-md-12">Tên dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Tên công việc"
-                                            class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="Tên công việc" class="form-control form-control-line" name="jobName"
+                                        value="${param.jobName}"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="yyyy-MM-dd"  class="form-control form-control-line" name="startDate"
+                                        value="${param.startDate}"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line"> </div>
+                                        <input type="text" placeholder="yyyy-MM-dd" class="form-control form-control-line" name="endDate"
+                                        value="${param.endDate}"> </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
+                                    	<p style="color: red"> ${message} </p>
                                         <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a href="<%= request.getContextPath() %>/job" class="btn btn-primary">Quay lại</a>
+                                        <a href="<%= contextPath%>/job" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>

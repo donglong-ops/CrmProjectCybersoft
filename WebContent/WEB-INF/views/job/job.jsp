@@ -47,7 +47,7 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <div class="top-left-part">
-                        <a class="logo" href="index.html">
+                        <a class="logo" href="<%=contextPath%>/home">
                             <b>
                                 <img src="static/plugins/images/pixeladmin-logo.png" alt="home" />
                             </b>
@@ -74,8 +74,8 @@
                                     <b class="hidden-xs">Cybersoft</b> 
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<%=contextPath%>/user/info">Thông tin cá nhân</a></li>
-                                    <li><a href="#">Thống kê công việc</a></li>
+                                    <li><a href="<%= contextPath %>/user/view">Thông tin cá nhân</a></li>
+                                    <li><a href="<%= contextPath %>/user/info">Thống kê công việc</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<%=contextPath%>/logout">Đăng xuất</a></li>
                                 </ul>

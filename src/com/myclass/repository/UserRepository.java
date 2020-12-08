@@ -85,6 +85,23 @@ public class UserRepository {
 		}
 		return user;
 	}
+	public User checkLogin(String email, String password) {
+		User user = null;
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM users WHERE email = ? and password = ?");
+			statement.setString(1, email);
+			statement.setString(2, password);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				user = new User(resultSet.getInt("id"), resultSet.getString("email"), resultSet.getString("password"),
+						resultSet.getString("fullname"), resultSet.getString("avatar"), resultSet.getInt("role_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 
 	public int save(User user) {
 		try {
@@ -131,5 +148,60 @@ public class UserRepository {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	public int countTaskUser(int id) {
+		int number = 0;
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement(
+					  "select count(t.id) as totalTaskOfUser "
+					+ "from tasks t join status s on t.status_id = s.id "
+					+ "where t.user_id = ? ");
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				number = resultSet.getInt("totalTaskOfUser");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return number;
+	}
+	public int countTaskUserByStatusDone(int id) {
+		int number = 0;
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement(
+					  	"select count(t.id) as StatusDone "
+					  + "from tasks t join status s on t.status_id = s.id "
+					  + "where s.id = 3 and t.user_id = ? ");
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				number = resultSet.getInt("StatusDone");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return number;
+	}
+	public int countTaskUserByStatusDoing(int id) {
+		int number = 0;
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement(
+					  	"select count(t.id) as StatusDoing "
+					  + "from tasks t join status s on t.status_id = s.id "
+					  + "where s.id = 2 and t.user_id = ? ;");
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				number = resultSet.getInt("StatusDoing");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return number;
 	}
 }

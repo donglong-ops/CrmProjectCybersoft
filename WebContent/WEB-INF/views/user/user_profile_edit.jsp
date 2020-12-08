@@ -1,3 +1,4 @@
+<%@page import="com.myclass.entity.User"%>
 <%@page import="com.myclass.entity.Role"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -5,6 +6,7 @@
 <!DOCTYPE html>
 <%
 	List<Role> roles = (List<Role>)request.getAttribute("roles");
+	User user = (User) request.getAttribute("user");
 %>
 <html>
 <head>
@@ -59,10 +61,12 @@
 					data-target=".navbar-collapse"> <i class="fa fa-bars"></i>
 				</a>
 				<div class="top-left-part">
-					<a class="logo" href="<%=request.getContextPath()%>/home"> <b> <img
-							src="<%=request.getContextPath()%>/static/plugins/images/pixeladmin-logo.png" alt="home" />
+					<a class="logo" href="index.html"> <b> <img
+							src="<%=request.getContextPath()%>/static/plugins/images/pixeladmin-logo.png"
+							alt="home" />
 					</b> <span class="hidden-xs"> <img
-							src="<%=request.getContextPath()%>/static/plugins/images/pixeladmin-text.png" alt="home" />
+							src="<%=request.getContextPath()%>/static/plugins/images/pixeladmin-text.png"
+							alt="home" />
 					</span>
 					</a>
 				</div>
@@ -82,7 +86,7 @@
 								href="#"> <img
 								src="<%=request.getContextPath()%>/static/plugins/images/users/varun.jpg"
 								alt="user-img" width="36" class="img-circle" /> <b
-								class="hidden-xs">Cybersoft</b>
+								class="hidden-xs">Setting</b>
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="<%=request.getContextPath()%>/user/view">Thông tin cá nhân</a></li>
@@ -135,7 +139,7 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Thêm mới thành viên</h4>
+						<h4 class="page-title">Thông Tin thành viên</h4>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -144,58 +148,41 @@
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
-							<form class="form-horizontal form-material" method="POST" action="<%=request.getContextPath()%>/user/add">
+							<form class="form-horizontal form-material" method="POST" action="<%=request.getContextPath()%>/user/edit">
 								<div class="form-group">
 									<label class="col-md-12">Full Name</label>
 									<div class="col-md-12">
-										<input type="text" placeholder="Enter Fullname"
-											name="fullname" class="form-control form-control-line" value="${param.fullname}">
+										<input type="text" value="${user.fullname}"
+											name="fullname" class="form-control form-control-line">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="example-email" class="col-md-12">Email</label>
 									<div class="col-md-12">
-										<input type="email" placeholder="Enter Email" name="email"
+										<input type="email" placeholder="Enter Email" name="email" value="${user.email}"
 											class="form-control form-control-line" name="example-email"
-											id="example-email" value="${param.email}">
+											id="example-email">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Password</label>
 									<div class="col-md-12">
-										<input type="password" name="password"
+										<input type="password" name="password" value="${user.password}"
 											placeholder="Enter Password"
 											class="form-control form-control-line">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-12">Avatar Link</label>
+									<label class="col-md-12 ">Avatar Link</label>
 									<div class="col-md-12">
-										<input type="text" placeholder="Enter Avatar Link" name="avatar"
-											class="form-control form-control-line" value="${param.avatar}">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-12">Select Role</label>
-									<div class="col-sm-12">
-										<select class="form-control form-control-line" name="roleId">
-											<%
-												for (Role role : roles) {
-											%>
-											<option value="<%=role.getId()%>">
-												<%=role.getDescription()%>
-											</option>
-											<%
-												}
-											%>
-										</select>
+										<input type="text" placeholder="Enter Avatar Link" name="avatar" value="${user.avatar}"
+											class="form-control form-control-line">
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12 text-center">
-									<p style="color: red"> ${errorAccount} </p>
-										<button type="submit" class="btn btn-success">Add User</button>
-										<a href="<%=request.getContextPath()%>/user" class="btn btn-primary">Back</a>
+										<button type="submit" class="btn btn-success">Update User</button>
+										<a href="<%=request.getContextPath()%>/user" class="btn btn-primary">Quay lại</a>
 									</div>
 								</div>
 							</form>

@@ -1,6 +1,12 @@
+<%@page import="com.myclass.entity.Status"%>
+<%@page import="java.util.List"%>
+<%@page import="com.myclass.dto.TaskDto"%>
 <%@ page language="java" contentType="text/html; utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
+<%  TaskDto task = (TaskDto) request.getAttribute("taskEdit"); 
+	List<Status> listStatus = (List<Status>) request.getAttribute("listStatus");
+%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -69,8 +75,8 @@
                                 <b class="hidden-xs">Cybersoft</b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<%= request.getContextPath() %>/user/info">Thông tin cá nhân</a></li>
-                                <li><a href="#">Thống kê công việc</a></li>
+                                <li><a href="<%= request.getContextPath() %>/user/view">Thông tin cá nhân</a></li>
+                                <li><a href="<%= request.getContextPath() %>/user/info">Thống kê công việc</a></li>
                                 <li class="divider"></li>
                                 <li><a href="<%= request.getContextPath() %>/logout">Đăng xuất</a></li>
                             </ul>
@@ -132,45 +138,53 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="<%= request.getContextPath() %>/user/profile_edit" method="POST">
                                 <div class="form-group">
                                     <label class="col-md-12">Tên dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Dự án CRM" class="form-control form-control-line">
+                                        <input type="text" readonly value="<%=task.getNameJob() %>" class="form-control form-control-line">
+                                        <input type="hidden" name="task_id"  value="<%=task.getId() %>" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Thiết kế database" class="form-control form-control-line">
+                                        <input type="text" readonly value="<%=task.getNameTask() %>" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="05-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" readonly value="<%=task.getStart_date() %>" class="form-control form-control-line"> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="17-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" readonly value="<%=task.getEnd_date() %>" class="form-control form-control-line"> 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Trạng thái</label>
+                                    <label class="col-md-12">Trạng Thái</label>
+                                    <div class="col-md-12 " >
+                                        <input type="text" readonly value="<%=task.getStatusName() %>" class="form-control form-control-line"> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12 text-center">Update Trạng thái</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Chưa thực hiện</option>
-                                            <option selected>Đang thực hiện</option>
-                                            <option>Đã hoàn thành</option>
+                                        <select class="form-control form-control-line" name="status_id">                                       
+										<%
+											for (Status status : listStatus) { %>
+                                            <option  value="<%= status.getId()%>"><%= status.getName() %></option>
+                                        <%} %>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 text-center">
                                         <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a href="<%= request.getContextPath() %>/user/profile" class="btn btn-primary">Quay lại</a>
+                                        <a href="<%= request.getContextPath() %>/user/info" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>

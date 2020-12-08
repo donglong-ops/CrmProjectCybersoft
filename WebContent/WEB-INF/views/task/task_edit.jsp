@@ -1,3 +1,4 @@
+<%@page import="com.myclass.dto.TaskDto"%>
 <%@page import="com.myclass.entity.Job"%>
 <%@page import="com.myclass.dto.UserDto"%>
 <%@page import="java.util.List"%>
@@ -8,6 +9,7 @@
 	String contextPath = request.getContextPath();
 	List<UserDto> users = (List<UserDto>) request.getAttribute("users");
 	List<Job> jobs = (List<Job>) request.getAttribute("jobs");
+	TaskDto dto = (TaskDto) request.getAttribute("taskDto");
 %>
 <html>
 <head>
@@ -74,7 +76,7 @@
                             <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#">
                                 <img src="<%= request.getContextPath() %>/static/plugins/images/users/varun.jpg" alt="user-img" width="36"
                                     class="img-circle" />
-                                <b class="hidden-xs">Cybersoft</b>
+                                <b class="hidden-xs">Setting</b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="<%=request.getContextPath()%>/user/view">Thông tin cá nhân</a></li>
@@ -131,7 +133,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Thêm mới công việc</h4>
+                        <h4 class="page-title">Chỉnh Sửa công việc</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -140,10 +142,13 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material" action="<%=request.getContextPath() %>/task/add" method="POST" >
+                            <form class="form-horizontal form-material" action="<%=request.getContextPath() %>/task/edit" method="POST" >
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
+                                       <input type="text" placeholder="Tên dự án" class="form-control form-control-line" name="nameTask"
+                                        readonly value="<%= dto.getNameJob()%>">
+                                        <label class="col-md-12 text-center">Thay Đổi Dự Án</label>
                                         <select class="form-control form-control-line" name="job_id">
                                         <%
 											for (Job job : jobs) {%>
@@ -156,12 +161,15 @@
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên công việc" class="form-control form-control-line" name="nameTask"
-                                        value="${param.nameTask}">
+                                        value="<%= dto.getNameTask()%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Người thực hiện</label>
                                     <div class="col-md-12">
+                                        <input type="text" placeholder="Người Thực Hiện" class="form-control form-control-line" name="nameTask"
+                                        readonly value="<%= dto.getNameUser()%>">
+                                        <label class="col-md-12 text-center">Thay Đổi Người thực hiện</label>
                                         <select class="form-control form-control-line" name="userId">
                                         <%
 											for (UserDto user : users) { %>
@@ -174,21 +182,21 @@
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="yyyy-MM-dd" class="form-control form-control-line" name="start_date"
-                                        value="${param.start_date}"> 
+                                        value="<%= dto.getStart_date()%>"> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="yyyy-MM-dd" class="form-control form-control-line" name="end_date"
-                                        value="${param.end_date}"> 
+                                        value="<%= dto.getEnd_date()%>"> 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 text-center">
                                     <p style="color: red"> ${message} </p>
-                                        <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a href="<%=request.getContextPath() %>/task" class="btn btn-primary">Quay lại</a>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                        <a href="<%=request.getContextPath() %>/task" class="btn btn-primary">Back</a>
                                     </div>
                                 </div>
                             </form>

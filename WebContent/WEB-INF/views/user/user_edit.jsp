@@ -89,8 +89,8 @@
 								class="hidden-xs">Cybersoft</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="<%=request.getContextPath()%>/user/info">Thông tin cá nhân</a></li>
-								<li><a href="#">Thống kê công việc</a></li>
+								<li><a href="<%=request.getContextPath()%>/user/view">Thông tin cá nhân</a></li>
+								<li><a href="<%= request.getContextPath() %>/user/info">Thống kê công việc</a></li>
 								<li class="divider"></li>
 								<li><a href="<%=request.getContextPath()%>/logout">Đăng xuất</a></li>
 							</ul>
@@ -148,12 +148,12 @@
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
-							<form class="form-horizontal form-material" method="POST" action="<%=request.getContextPath()%>/user/edit">
+							<form class="form-horizontal form-material" action="<%=request.getContextPath()%>/user/edit" method="POST">
 								<div class="form-group">
 									<label class="col-md-12">Full Name</label>
 									<div class="col-md-12">
-										<input type="text" value="${user.fullname}"
-											name="fullname" class="form-control form-control-line">
+										<input type="text" value="${user.fullname}"name="fullname" class="form-control form-control-line">
+										<input type="hidden" value="${user.id}"name="id" >
 									</div>
 								</div>
 								<div class="form-group">
@@ -180,28 +180,25 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-12">Select Role</label>
+									<label class="col-sm-12">User Role</label>
 									<div class="col-sm-12">
-										<input type="text" placeholder="Enter ROleID" name="roleId" value="${user.roleId}"
-											class="form-control form-control-line">
-										
-										<select class="form-control form-control-line" name="roleId"> 
-											<%
-												for (Role role : roles) {
-											%>
+										<input type="text" placeholder="ROleID" name="roleId" readonly value="${user.roleId}" class="form-control form-control-line">
+										<label class="col-md-12 text-center">Change Role</label>
+										<select class="form-control form-control-line" name="role_Id"> 
+											<%for (Role role : roles) {%>
+											<option selected value="0"></option>
 											<option value="<%=role.getId()%>">
 												<%=role.getDescription()%>
 											</option>
-											<%
-												}
-											%>
+											<%}%>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-12">
+									<div class="col-sm-12 text-center">
+										<p style="color: red"> ${errorAccount} </p>
 										<button type="submit" class="btn btn-success">Update User</button>
-										<a href="<%=request.getContextPath()%>/user" class="btn btn-primary">Quay lại</a>
+										<a href="<%=request.getContextPath()%>/user" class="btn btn-primary">Back </a>
 									</div>
 								</div>
 							</form>

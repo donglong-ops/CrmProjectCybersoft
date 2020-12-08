@@ -13,6 +13,11 @@ public class Role {
 		this.name = name;
 		this.description = description;
 	}
+	public Role(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
 
 	public int getId() {
 		return id;

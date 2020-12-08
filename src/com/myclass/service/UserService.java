@@ -47,6 +47,7 @@ public class UserService {
 		Role role = roleRepository.findById(user.getRoleId());
 		
 		UserDto dto = new UserDto();
+		dto.setId(user.getId());
 		dto.setEmail(user.getEmail());
 		dto.setFullname(user.getFullname());
 		dto.setRoleName(role.getName());
