@@ -1,7 +1,15 @@
+<%@page import="com.myclass.dto.JobDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
+<%
+	String contextPath = request.getContextPath();
+	List<JobDto> taskNotDone = (List<JobDto>) request.getAttribute("TaskNotDone");
+	List<JobDto> taskDoing = (List<JobDto>) request.getAttribute("TaskDoing");
+	List<JobDto> taskDone = (List<JobDto>) request.getAttribute("TaskDone");
+%>
 <head>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -121,7 +129,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Chi tiết thành viên</h4>
+                        <h4 class="page-title">Chi tiết Dự Án</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -132,6 +140,7 @@
                             <div class="user-bg"> <img width="100%" alt="user" src="<%= request.getContextPath() %>/static/plugins/images/large/img1.jpg">
                                 <div class="overlay-box">
                                     <div class="user-content">
+                                    	<h2>Welcome</h2>
                                         <a href="javascript:void(0)"><img src="<%= request.getContextPath() %>/static/plugins/images/users/genu.jpg"
                                                 class="thumb-lg img-circle" alt="img"></a>
                                         <h4 class="text-white">${sessionScope.USER_LOGIN.fullname }</h4>
@@ -223,70 +232,52 @@
                     <div class="col-md-4">
                         <div class="white-box">
                             <h3 class="box-title">Chưa thực hiện</h3>
+                            <% for(JobDto dto: taskNotDone){ %>
                             <div class="message-center">
                                 <a href="#">
                                     <div class="mail-contnet">
-                                        <h5>Phân tích hệ thống</h5>
+                                        <h5><%=dto.getName() %></h5>
                                         <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
+                                        <span class="time">Bắt đầu: <%=dto.getStart_date() %></span>
+                                        <span class="time">Kết thúc: <%=dto.getEnd_date() %></span>
                                     </div>
                                 </a> 
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Thiết kế database</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a>
                             </div>
+                            <%} %>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="white-box">
                             <h3 class="box-title">Đang thực hiện</h3>
+                             <% for(JobDto dto: taskDoing){ %>
                             <div class="message-center">
                                 <a href="#">
                                     <div class="mail-contnet">
-                                        <h5>Phân tích hệ thống</h5>
+                                        <h5><%=dto.getName() %></h5>
                                         <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
+                                        <span class="time">Bắt đầu: <%=dto.getStart_date() %></span>
+                                        <span class="time">Kết thúc: <%=dto.getEnd_date() %></span>
                                     </div>
                                 </a> 
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Thiết kế database</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a>
                             </div>
+                            <%} %>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="white-box">
                             <h3 class="box-title">Đã hoàn thành</h3>
+                             <% for(JobDto dto: taskDone){ %>
                             <div class="message-center">
                                 <a href="#">
                                     <div class="mail-contnet">
-                                        <h5>Phân tích hệ thống</h5>
+                                        <h5><%=dto.getName() %></h5>
                                         <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
+                                        <span class="time">Bắt đầu: <%=dto.getStart_date() %></span>
+                                        <span class="time">Kết thúc: <%=dto.getEnd_date() %></span>
                                     </div>
                                 </a> 
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Thiết kế database</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a>
                             </div>
+                            <%} %>
                         </div>
                     </div>
                 </div>

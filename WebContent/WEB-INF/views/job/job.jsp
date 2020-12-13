@@ -162,7 +162,7 @@
 											<td>
 												<a href="<%=contextPath%>/job/edit?id=<%=job.getId()%>"class="btn btn-sm btn-primary">Sửa</a> 
 												<a href="<%=contextPath%>/job/delete?id=<%=job.getId()%>"class="btn btn-sm btn-danger">Xóa</a> 
-												<a href="<%=contextPath%>/user/detail" class="btn btn-sm btn-info">Xem</a>
+												<a href="<%=contextPath%>/user/detail?job_id=<%=job.getId() %>" class="btn btn-sm btn-info">Xem</a>
 											</td>
 										</tr>
 										<%

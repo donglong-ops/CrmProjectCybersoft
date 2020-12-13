@@ -51,7 +51,7 @@
 					data-target=".navbar-collapse"> <i class="fa fa-bars"></i>
 				</a>
 				<div class="top-left-part">
-					<a class="logo" href="index.html"> <b> <img
+					<a class="logo" href="<%= request.getContextPath() %>/home"> <b> <img
 							src="static/plugins/images/pixeladmin-logo.png" alt="home" />
 					</b> <span class="hidden-xs"> <img
 							src="static/plugins/images/pixeladmin-text.png" alt="home" />

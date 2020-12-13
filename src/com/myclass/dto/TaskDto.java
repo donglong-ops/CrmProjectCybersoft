@@ -1,7 +1,6 @@
 package com.myclass.dto;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class TaskDto {
 	private int id;

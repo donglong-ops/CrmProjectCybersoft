@@ -53,7 +53,6 @@ public class AuthController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String pass = req.getParameter("password");
-		System.out.println(email  + pass);
 		if (email.length() > 0 && pass.length() > 2) {
 			User dto = userRepository.checkLogin(email, pass);	
 			
@@ -66,7 +65,8 @@ public class AuthController extends HttpServlet {
 				test.setFullname(dto.getFullname());
 				test.setRoleName(role.getName());
 				HttpSession session = req.getSession();
-				session.setAttribute(SessionConstants.USER_LOGIN, dto);
+				//session.setAttribute(SessionConstants.USER_LOGIN, dto);
+				session.setAttribute("USER_LOGIN", test);
 				resp.sendRedirect(req.getContextPath() + "/home");
 			} else {
 				req.setAttribute("message", "Invalid Email or Password!");

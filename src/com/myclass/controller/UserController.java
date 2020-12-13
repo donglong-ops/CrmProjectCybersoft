@@ -16,6 +16,7 @@ import com.myclass.dto.TaskDto;
 import com.myclass.dto.UserDto;
 import com.myclass.entity.Task;
 import com.myclass.entity.User;
+import com.myclass.repository.JobRepository;
 import com.myclass.repository.RoleRepository;
 import com.myclass.repository.StatusRepository;
 import com.myclass.repository.TaskRepository;
@@ -30,6 +31,7 @@ public class UserController extends HttpServlet {
 	private UserRepository userRepository = null;
 	private TaskRepository taskRepository = null;
 	private StatusRepository statusRepository = null;
+	private JobRepository jobRepository  = null;
 
 	private UserService userService = null;
 
@@ -38,6 +40,7 @@ public class UserController extends HttpServlet {
 		userRepository = new UserRepository();
 		taskRepository = new TaskRepository();
 		statusRepository = new StatusRepository();
+		jobRepository = new JobRepository();
 
 		userService = new UserService();
 	}
@@ -65,7 +68,7 @@ public class UserController extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/views/user/user_edit.jsp").forward(req, resp);
 			break;
 		case "/user/view":
-			UserDto Dto = (UserDto) session.getAttribute(SessionConstants.USER_LOGIN);
+			UserDto Dto = (UserDto) session.getAttribute("USER_LOGIN");
 			User userView = userRepository.findById(Dto.getId());
 			req.setAttribute("user", userView);
 			req.setAttribute("roles", roleRepository.findAll());
@@ -94,7 +97,11 @@ public class UserController extends HttpServlet {
 				break;
 			}
 		case "/user/detail":
-
+			String job_id = req.getParameter("job_id");
+				req.setAttribute("TaskNotDone", jobRepository.findTaskByJobNotDone(job_id));
+				req.setAttribute("TaskDoing", jobRepository.findTaskByJobDoing(job_id));
+				req.setAttribute("TaskDone", jobRepository.findTaskByJobDone(job_id));
+			
 			req.getRequestDispatcher("/WEB-INF/views/user/user_detail.jsp").forward(req, resp);
 			break;
 		case "/user/profile_edit":
