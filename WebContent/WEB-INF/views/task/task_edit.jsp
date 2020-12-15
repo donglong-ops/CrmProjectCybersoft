@@ -146,12 +146,13 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                       <input type="text" placeholder="Tên dự án" class="form-control form-control-line" name="nameTask"
+                                       <input type="text" placeholder="Tên dự án" class="form-control form-control-line" name="nameJob"
                                         readonly value="<%= dto.getNameJob()%>">
                                         <label class="col-md-12 text-center">Thay Đổi Dự Án</label>
                                         <select class="form-control form-control-line" name="job_id">
                                         <%
 											for (Job job : jobs) {%>
+											<option value="0"> </option>
                                             <option value="<%= job.getId() %>"><%=job.getName() %></option>
                                         <%} %>
                                         </select>
@@ -162,17 +163,19 @@
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên công việc" class="form-control form-control-line" name="nameTask"
                                         value="<%= dto.getNameTask()%>">
+                                        <input type="hidden" name="task_id" value="<%= dto.getId() %>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Người thực hiện</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Người Thực Hiện" class="form-control form-control-line" name="nameTask"
+                                        <input type="text" placeholder="Người Thực Hiện" class="form-control form-control-line" name="userDo"
                                         readonly value="<%= dto.getNameUser()%>">
                                         <label class="col-md-12 text-center">Thay Đổi Người thực hiện</label>
-                                        <select class="form-control form-control-line" name="userId">
+                                        <select class="form-control form-control-line" name="user_id">
                                         <%
 											for (UserDto user : users) { %>
+											<option value="0"> </option>
                                             <option value="<%= user.getId() %>"><%= user.getFullname() %></option>
                                         <%} %>
                                         </select>

@@ -7,7 +7,6 @@ public class UserDto {
 	private String fullname;
 	private String avatar;
 	private String roleDec;
-	private String roleName;
 	
 	public UserDto() {}
 
@@ -77,11 +76,4 @@ public class UserDto {
 		this.roleDec = roleDec;
 	}
 
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
 }

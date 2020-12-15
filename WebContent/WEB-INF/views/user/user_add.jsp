@@ -82,7 +82,7 @@
 								href="#"> <img
 								src="<%=request.getContextPath()%>/static/plugins/images/users/varun.jpg"
 								alt="user-img" width="36" class="img-circle" /> <b
-								class="hidden-xs">Cybersoft</b>
+								class="hidden-xs">Setting</b>
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="<%=request.getContextPath()%>/user/view">Thông tin cá nhân</a></li>

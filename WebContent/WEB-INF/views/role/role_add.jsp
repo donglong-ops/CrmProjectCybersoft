@@ -142,7 +142,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 text-center">
+                                    <p style="color: red"> ${message} </p>
                                         <button type="submit" class="btn btn-success">Add Role</button>
                                         <a href="<%= request.getContextPath() %>/role" class="btn btn-primary">Quay lại</a>
                                     </div>

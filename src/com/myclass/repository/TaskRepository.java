@@ -110,7 +110,7 @@ public class TaskRepository {
 	public void updateTaskById(int id_task, int status_id) {
 		try {
 			Connection conn = JDBCConnection.getConnection();
-			PreparedStatement statement = conn.prepareStatement("update  tasks set status_id = ? where id = ? ");
+			PreparedStatement statement = conn.prepareStatement("update tasks set status_id = ? where id = ? ");
 			statement.setInt(1, status_id);
 			statement.setInt(2, id_task);
 			statement.executeUpdate();
@@ -138,6 +138,40 @@ public class TaskRepository {
 			e.printStackTrace();
 		}
 		return task;
+	}
+	public int updateTask(Task task) {
+		int count = 4;
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			String query = "Update tasks set name = ? , start_date = ? , end_date = ? ";
+			
+			if(task.getJob_id() != 0) {
+				query = query + " ,job_id = ? "; 
+			}	
+			if(task.getUser_id() != 0) {
+				query = query + " ,user_id = ?  ";
+			}
+			query = query + " where id = ? ";
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, task.getName());
+			statement.setDate(2, task.getStart_date());
+			statement.setDate(3, task.getEnd_date());
+			
+			if(task.getJob_id() != 0) {
+				statement.setInt(count, task.getJob_id());
+				count++;
+			}	
+			if(task.getUser_id() != 0) {
+				statement.setInt(count, task.getUser_id());
+				count++;
+			}
+			statement.setInt(count, task.getId());
+			
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 }

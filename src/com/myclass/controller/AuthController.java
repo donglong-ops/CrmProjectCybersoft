@@ -63,10 +63,9 @@ public class AuthController extends HttpServlet {
 				test.setEmail(dto.getEmail());
 				test.setAvatar(dto.getAvatar());
 				test.setFullname(dto.getFullname());
-				test.setRoleName(role.getName());
+				test.setRoleDec(role.getName());
 				HttpSession session = req.getSession();
-				//session.setAttribute(SessionConstants.USER_LOGIN, dto);
-				session.setAttribute("USER_LOGIN", test);
+				session.setAttribute(SessionConstants.USER_LOGIN, test);
 				resp.sendRedirect(req.getContextPath() + "/home");
 			} else {
 				req.setAttribute("message", "Invalid Email or Password!");

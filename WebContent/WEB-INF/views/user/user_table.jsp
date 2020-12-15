@@ -157,7 +157,6 @@
 											<td>
 												<a href="<%=contextPath%>/user/edit?id=<%=user.getId()%>"class="btn btn-sm btn-primary">Sửa</a> 
 												<a href="<%=contextPath%>/user/delete?id=<%=user.getId()%>"class="btn btn-sm btn-danger">Xóa</a> 
-												<a href="<%= request.getContextPath() %>/user/detail" class="btn btn-sm btn-info">Xem</a>
 											</td>
 										</tr>
 										<%

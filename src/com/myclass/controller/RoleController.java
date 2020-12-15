@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.myclass.entity.Role;
-import com.myclass.entity.User;
 import com.myclass.repository.RoleRepository;
 
 @WebServlet(name = "roleServlet", urlPatterns = { "/role", "/role/add", "/role/edit", "/role/delete" })
@@ -66,12 +65,16 @@ public class RoleController extends HttpServlet {
 		case "/role/add":
 			String name = req.getParameter("name");
 			String desc = req.getParameter("desc");
-
-			int result = roleRepository.save(new Role( name, desc));
-			if (result != -1) {
-				resp.sendRedirect(req.getContextPath() + "/role");
-			} else {
-				req.setAttribute("message", "Thêm mới thất bại!");
+			if(name.length() > 0 && desc.length() > 0) {
+					int result = roleRepository.save(new Role( name, desc));
+					if (result != -1) {
+						resp.sendRedirect(req.getContextPath() + "/role");
+					} else {
+						req.setAttribute("message", "Can't Create Role!");
+						req.getRequestDispatcher("/WEB-INF/views/role/role_add.jsp").forward(req, resp);
+					}
+			}else {
+				req.setAttribute("message", "Can't Create Role!");
 				req.getRequestDispatcher("/WEB-INF/views/role/role_add.jsp").forward(req, resp);
 			}
 			break;
@@ -86,7 +89,7 @@ public class RoleController extends HttpServlet {
 			}else {
 				Role role = roleRepository.findById(id);
 				req.setAttribute("roleDto", role);
-				req.setAttribute("errorUpdate", "Không thể Update");
+				req.setAttribute("errorUpdate", "Can't Update");
 				req.getRequestDispatcher("/WEB-INF/views/role/role_edit.jsp").forward(req, resp);
 			}
 			break;

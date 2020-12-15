@@ -1,3 +1,4 @@
+<%@page import="com.myclass.dto.UserDto"%>
 <%@page import="com.myclass.entity.User"%>
 <%@page import="com.myclass.entity.Role"%>
 <%@page import="java.util.List"%>
@@ -6,7 +7,7 @@
 <!DOCTYPE html>
 <%
 	List<Role> roles = (List<Role>)request.getAttribute("roles");
-	User user = (User) request.getAttribute("user");
+	UserDto user = (UserDto) request.getAttribute("user");
 %>
 <html>
 <head>
@@ -86,7 +87,7 @@
 								href="#"> <img
 								src="<%=request.getContextPath()%>/static/plugins/images/users/varun.jpg"
 								alt="user-img" width="36" class="img-circle" /> <b
-								class="hidden-xs">Cybersoft</b>
+								class="hidden-xs">Setting</b>
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="<%=request.getContextPath()%>/user/view">Thông tin cá nhân</a></li>
@@ -150,39 +151,35 @@
 						<div class="white-box">
 							<form class="form-horizontal form-material" action="<%=request.getContextPath()%>/user/edit" method="POST">
 								<div class="form-group">
-									<label class="col-md-12">Full Name</label>
+									<label class="col-md-12 text-center">Full Name</label>
 									<div class="col-md-12">
-										<input type="text" value="${user.fullname}"name="fullname" class="form-control form-control-line">
+										<input type="text" readonly value="${user.fullname}"name="fullname" class="form-control form-control-line text-center">
 										<input type="hidden" value="${user.id}"name="id" >
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group text-center">
 									<label for="example-email" class="col-md-12">Email</label>
 									<div class="col-md-12">
-										<input type="email" placeholder="Enter Email" name="email" value="${user.email}"
-											class="form-control form-control-line" name="example-email"
+										<input type="email" placeholder="Enter Email" name="email" readonly value="${user.email}"
+											class="form-control form-control-line text-center" name="example-email"
 											id="example-email">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-12">Password</label>
+									<label class="col-md-12 text-center">Avatar</label>
 									<div class="col-md-12">
-										<input type="password" name="password" value="${user.password}"
-											placeholder="Enter Password"
-											class="form-control form-control-line">
-									</div>
+										<div class="col-sm-12 text-center">
+											<img src="<%= request.getContextPath() %>/static/plugins/images/users/genu.jpg"class="thumb-lg img-circle" alt="img">
+										</div>
+									</div>	
 								</div>
 								<div class="form-group">
-									<label class="col-md-12">Avatar Link</label>
-									<div class="col-md-12">
-										<input type="text" placeholder="Enter Avatar Link" name="avatar" value="${user.avatar}"
-											class="form-control form-control-line">
+									<label class="col-sm-12 text-center">User Role</label>
+									<div class="col-sm-12"> 
+										<input type="text" placeholder="ROleID" name="roleId" readonly value="${user.roleDec}" class="form-control form-control-line text-center">
 									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-12">User Role</label>
 									<div class="col-sm-12">
-										<input type="text" placeholder="ROleID" name="roleId" readonly value="${user.roleId}" class="form-control form-control-line">
+										<label class="col-md-12 text-center">----------- </label>
 										<label class="col-md-12 text-center">Change Role</label>
 										<select class="form-control form-control-line" name="role_Id"> 
 											<%for (Role role : roles) {%>

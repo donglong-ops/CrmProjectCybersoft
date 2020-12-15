@@ -61,8 +61,7 @@
                         <li>
                             <form role="search" class="app-search hidden-xs">
                                 <input type="text" placeholder="Search..." class="form-control"> 
-                                <a href="">
-                                    <i class="fa fa-search"></i>
+                                <a href=""><i class="fa fa-search"></i>
                                 </a>
                             </form>
                         </li>
@@ -72,7 +71,7 @@
                             <div class="dropdown">
                                 <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#"> 
                                     <img src="<%= request.getContextPath() %>/static/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle" />
-                                    <b class="hidden-xs">Cybersoft</b> 
+                                    <b class="hidden-xs">Setting</b> 
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<%= request.getContextPath() %>/user/view">Thông tin cá nhân</a></li>
@@ -159,7 +158,7 @@
 			<div class="white-box">
 				<div class="col-in row">
 					<div class="col-xs-12">
-						<h3 class="counter text-right m-t-15 text-danger">20%</h3>
+						<h3 class="counter text-right m-t-15 text-danger text-center"><%= taskNotDone.size() %></h3>
                     </div>
                     <div class="col-xs-12">
 						<i data-icon="E" class="linea-icon linea-basic"></i>
@@ -181,7 +180,7 @@
 			<div class="white-box">
 				<div class="col-in row">
 					<div class="col-xs-12">
-						<h3 class="counter text-right m-t-15 text-megna">50%</h3>
+						<h3 class="counter text-right m-t-15 text-megna text-center"><%= taskDoing.size() %></h3>
                     </div>
                     <div class="col-xs-12">
 						<i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -203,7 +202,7 @@
 			<div class="white-box">
 				<div class="col-in row">
 					<div class="col-xs-12">
-						<h3 class="counter text-right m-t-15 text-primary">30%</h3>
+						<h3 class="counter text-right m-t-15 text-primary text-center"><%= taskDone.size() %></h3>
                     </div>
                     <div class="col-xs-12">
 						<i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>

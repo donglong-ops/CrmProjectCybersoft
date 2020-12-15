@@ -40,19 +40,19 @@ public class UserService {
 		return userRepository.findAllUserRole();
 	}
 	
-	public UserDto checkLogin(String email, String pass) {
-		User user = userRepository.findByEmail(email);
-		if(user == null) return null;
-		
-		Role role = roleRepository.findById(user.getRoleId());
-		
-		UserDto dto = new UserDto();
-		dto.setId(user.getId());
-		dto.setEmail(user.getEmail());
-		dto.setFullname(user.getFullname());
-		dto.setRoleName(role.getName());
-		
-		return dto;
-		
-	}
+	//public UserDto checkLogin(String email, String pass) {
+//		User user = userRepository.findByEmail(email);
+//		if(user == null) return null;
+//		
+//		Role role = roleRepository.findById(user.getRoleId());
+//		
+//		UserDto dto = new UserDto();
+//		dto.setId(user.getId());
+//		dto.setEmail(user.getEmail());
+//		dto.setFullname(user.getFullname());
+//		dto.setRoleName(role.getName());
+//		
+//		return dto;
+//		
+//	}
 }

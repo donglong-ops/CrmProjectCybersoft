@@ -169,7 +169,6 @@
 											<td>
 												<a href="<%=contextPath%>/task/edit?id=<%=task.getId()%>"class="btn btn-sm btn-primary">Sửa</a> 
 												<a href="<%=contextPath%>/task/delete?id=<%=task.getId()%>"class="btn btn-sm btn-danger">Xóa</a> 
-												<a href="<%= request.getContextPath() %>/user/detail" class="btn btn-sm btn-info">Xem</a>
 											</td>
 										</tr>
 										<%

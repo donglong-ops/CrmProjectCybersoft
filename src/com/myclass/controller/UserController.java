@@ -14,7 +14,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.myclass.constants.SessionConstants;
 import com.myclass.dto.TaskDto;
 import com.myclass.dto.UserDto;
-import com.myclass.entity.Task;
 import com.myclass.entity.User;
 import com.myclass.repository.JobRepository;
 import com.myclass.repository.RoleRepository;
@@ -24,7 +23,7 @@ import com.myclass.repository.UserRepository;
 import com.myclass.service.UserService;
 
 @WebServlet(name = "userServlet", urlPatterns = { "/user", "/user/add", "/user/edit", "/user/delete", "/user/info",
-		"/user/detail", "/user/profile_edit", "/user/view" })
+		"/user/detail", "/user/profile_edit", "/user/view"})
 public class UserController extends HttpServlet {
 
 	private RoleRepository roleRepository = null;
@@ -62,7 +61,7 @@ public class UserController extends HttpServlet {
 			break;
 		case "/user/edit":
 			int id = Integer.parseInt(req.getParameter("id"));
-			User user = userRepository.findById(id);
+			UserDto user = userRepository.findUserById(id);
 			req.setAttribute("user", user);
 			req.setAttribute("roles", roleRepository.findAll());
 			req.getRequestDispatcher("/WEB-INF/views/user/user_edit.jsp").forward(req, resp);
@@ -73,7 +72,7 @@ public class UserController extends HttpServlet {
 			req.setAttribute("user", userView);
 			req.setAttribute("roles", roleRepository.findAll());
 			req.getRequestDispatcher("/WEB-INF/views/user/user_profile_edit.jsp").forward(req, resp);
-			break;
+			break;	
 		case "/user/delete":
 			int idDelete = Integer.parseInt(req.getParameter("id"));
 			userRepository.deleteUser(idDelete);
@@ -144,24 +143,17 @@ public class UserController extends HttpServlet {
 		case "/user/edit":
 			String fullName = req.getParameter("fullname");
 			String Email = req.getParameter("email");
-			String Password = req.getParameter("password");
 			String Avatar = req.getParameter("avatar");
-			if (fullName.length() > 0 && Email.length() > 0 && Password.length() > 0) {
-				int RoleId = Integer.valueOf(req.getParameter("roleId"));
+			if (fullName.length() > 0 && Email.length() > 0) {
+				//int RoleId = Integer.valueOf(req.getParameter("roleId"));
 				int id = Integer.valueOf(req.getParameter("id"));
 				User userEdit = userRepository.findById(id);
 				userEdit.setEmail(Email);
 				userEdit.setFullname(fullName);
 				userEdit.setAvatar(Avatar);
 				int role_id = Integer.valueOf(req.getParameter("role_Id"));
-				if(role_id == 0) {
-					userEdit.setRoleId(RoleId);
-				}else {
+				if(role_id != 0) {
 					userEdit.setRoleId(role_id);
-				}
-				if (Password != null && !Password.isEmpty()) {
-					String hashed2 = BCrypt.hashpw(Password, BCrypt.gensalt(12));
-					userEdit.setPassword(hashed2);
 				}
 				userRepository.update(userEdit);
 				resp.sendRedirect(req.getContextPath() + "/user");

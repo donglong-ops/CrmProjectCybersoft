@@ -100,7 +100,7 @@
                                 aria-hidden="true"></i><span class="hide-menu">Thành viên</span></a>
                     </li>
                     <li>
-                        <a href="<%=contextPath%>/task" class="waves-effect"><i class="fa fa-modx fa-fw"
+                        <a href="<%=contextPath%>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Quyền</span></a>
                     </li>
                     <li>

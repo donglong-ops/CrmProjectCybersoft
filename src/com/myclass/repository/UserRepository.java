@@ -67,6 +67,25 @@ public class UserRepository {
 		}
 		return user;
 	}
+	public UserDto findUserById(int id) {
+		UserDto dto = new UserDto();
+		try {
+			Connection conn = JDBCConnection.getConnection();
+			PreparedStatement statement = conn.prepareStatement(
+					"SELECT u.id, u.email, u.password, u.fullname, u.avatar, r.description FROM users u JOIN roles r ON u.role_id = r.id where u.id = ? ");
+			
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				dto = new UserDto(resultSet.getInt("id"), resultSet.getString("email"),
+						resultSet.getString("password"), resultSet.getString("fullname"), resultSet.getString("avatar"),
+						resultSet.getString("description"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 
 	public User findByEmail(String email) {
 		User user = null;

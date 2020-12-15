@@ -92,7 +92,7 @@ public class TaskController extends HttpServlet {
 			int job_id = Integer.parseInt(req.getParameter("job_id"));
 			Date start_date = null;
 			Date end_date = null;
-			if (taskName.length() > 0 && req.getParameter("start_date").length() > 0&& req.getParameter("end_date").length() > 0) {
+			if (taskName.length() > 0 && req.getParameter("start_date").length() > 0 && req.getParameter("end_date").length() > 0  ) {
 				try {
 					long time_start = ((java.util.Date) new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("start_date"))).getTime();
 					start_date = new Date(time_start);
@@ -106,41 +106,62 @@ public class TaskController extends HttpServlet {
 				if (result != -1) {
 					resp.sendRedirect(req.getContextPath() + "/task");
 				} else {
+					req.setAttribute("users", userService.getAllUserRole());
+					req.setAttribute("jobs", jobService.getAll());
 					req.setAttribute("message", "Add Failed.Format Date yyyy-MM-dd !!");
-					req.getRequestDispatcher("/WEB-INF/views/job/tas_add.jsp").forward(req, resp);
+					req.getRequestDispatcher("/WEB-INF/views/task/task_add.jsp").forward(req, resp);
 				}
 			} else {
+				req.setAttribute("users", userService.getAllUserRole());
+				req.setAttribute("jobs", jobService.getAll());
 				req.setAttribute("message", "Add Failed.Format Date yyyy-MM-dd !!");
-				req.getRequestDispatcher("/WEB-INF/views/job/tas_add.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/views/task/task_add.jsp").forward(req, resp);
 			}
 			break;
 		case "/task/edit":
-//			String taskName = req.getParameter("nameTask");
-//			int user_id = Integer.parseInt(req.getParameter("userId"));
-//			int job_id = Integer.parseInt(req.getParameter("job_id"));
-//			Date start_date = null;
-//			Date end_date = null;
-//			if (taskName.length() > 0 && req.getParameter("start_date").length() > 0&& req.getParameter("end_date").length() > 0) {
-//				try {
-//					long time_start = ((java.util.Date) new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("start_date"))).getTime();
-//					start_date = new Date(time_start);
-//
-//					long time_end = ((java.util.Date) new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("end_date"))).getTime();
-//					end_date = new Date(time_end);
-//				} catch (ParseException e) {
-//					System.out.println("Error Date: " + e.getMessage());
-//				}
-//				int result = taskRepository.save(new Task(taskName, start_date, end_date, user_id, job_id, 1));
-//				if (result != -1) {
-//					resp.sendRedirect(req.getContextPath() + "/task");
-//				} else {
-//					req.setAttribute("message", "Add Failed.Format Date yyyy-MM-dd !!");
-//					req.getRequestDispatcher("/WEB-INF/views/job/tas_add.jsp").forward(req, resp);
-//				}
-//			} else {
-//				req.setAttribute("message", "Add Failed.Format Date yyyy-MM-dd !!");
-//				req.getRequestDispatcher("/WEB-INF/views/job/tas_add.jsp").forward(req, resp);
-//			}
+			int task_Id = Integer.valueOf(req.getParameter("task_id"));
+			String taskname = req.getParameter("nameTask");
+			Date start_Date = null;
+			Date end_Date = null;
+			
+			int user_Id = 0;
+			int job_Id = 0;
+
+			if (taskname.length() > 0 && req.getParameter("start_date").length() > 0 && req.getParameter("end_date").length() > 0 ) {
+				try {
+					long time_start = ((java.util.Date) new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("start_date"))).getTime();
+					start_Date = new Date(time_start);
+
+					long time_end = ((java.util.Date) new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("end_date"))).getTime();
+					end_Date = new Date(time_end);
+				} catch (ParseException e) {
+					System.out.println("Error Date: " + e.getMessage());
+				}
+				if(Integer.valueOf(req.getParameter("user_id")) != 0) {
+					user_Id = Integer.parseInt(req.getParameter("user_id"));
+				}
+				if(Integer.valueOf(req.getParameter("job_id")) != 0) {
+					job_Id = Integer.parseInt(req.getParameter("job_id"));
+				}
+				int result = taskRepository.updateTask(new Task(task_Id, taskname, start_Date, end_Date, user_Id, job_Id, 1));
+				if (result != -1) {
+					resp.sendRedirect(req.getContextPath() + "/task");
+				} else {
+					TaskDto task = taskRepository.findTaskById(task_Id);
+					req.setAttribute("taskDto", task);
+					req.setAttribute("users", userService.getAllUserRole());
+					req.setAttribute("jobs", jobService.getAll());
+					req.setAttribute("message", "Update Failed.Format Date yyyy-MM-dd !!");
+					req.getRequestDispatcher("/WEB-INF/views/task/task_edit.jsp").forward(req, resp);
+				}
+			} else {
+				TaskDto task = taskRepository.findTaskById(task_Id);
+				req.setAttribute("taskDto", task);
+				req.setAttribute("users", userService.getAllUserRole());
+				req.setAttribute("jobs", jobService.getAll());
+				req.setAttribute("message", "Update Failed.Format Date yyyy-MM-dd !!");
+				req.getRequestDispatcher("/WEB-INF/views/task/task_edit.jsp").forward(req, resp);
+			}
 			break;
 		default:
 			break;
