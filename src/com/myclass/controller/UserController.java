@@ -145,15 +145,16 @@ public class UserController extends HttpServlet {
 			String Email = req.getParameter("email");
 			String Avatar = req.getParameter("avatar");
 			if (fullName.length() > 0 && Email.length() > 0) {
-				//int RoleId = Integer.valueOf(req.getParameter("roleId"));
 				int id = Integer.valueOf(req.getParameter("id"));
 				User userEdit = userRepository.findById(id);
 				userEdit.setEmail(Email);
 				userEdit.setFullname(fullName);
 				userEdit.setAvatar(Avatar);
-				int role_id = Integer.valueOf(req.getParameter("role_Id"));
-				if(role_id != 0) {
-					userEdit.setRoleId(role_id);
+				if(req.getParameter("role_Id") != null) {
+					int role_id = Integer.valueOf(req.getParameter("role_Id"));
+					if(role_id != 0) {
+						userEdit.setRoleId(role_id);
+					}
 				}
 				userRepository.update(userEdit);
 				resp.sendRedirect(req.getContextPath() + "/user");

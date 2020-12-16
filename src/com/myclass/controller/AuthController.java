@@ -63,7 +63,8 @@ public class AuthController extends HttpServlet {
 				test.setEmail(dto.getEmail());
 				test.setAvatar(dto.getAvatar());
 				test.setFullname(dto.getFullname());
-				test.setRoleDec(role.getName());
+				test.setRoleName(role.getName());
+				test.setRoleDec(role.getDescription());
 				HttpSession session = req.getSession();
 				session.setAttribute(SessionConstants.USER_LOGIN, test);
 				resp.sendRedirect(req.getContextPath() + "/home");
