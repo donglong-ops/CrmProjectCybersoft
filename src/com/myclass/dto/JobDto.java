@@ -3,7 +3,7 @@ package com.myclass.dto;
 import java.sql.Date;
 
 public class JobDto {
-	private String name;// test nà
+	private String name;// test , push git hub 
 	private String userDo;
 	private Date start_date;
 	private Date end_date;
