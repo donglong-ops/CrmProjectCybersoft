@@ -23,7 +23,7 @@ import com.myclass.repository.UserRepository;
 import com.myclass.service.UserService;
 
 @WebServlet(name = "userServlet", urlPatterns = { "/user", "/user/add", "/user/edit", "/user/delete", "/user/info",
-		"/user/detail", "/user/profile_edit", "/user/view"})
+		"/user/detail", "/user/profile_edit", "/user/view","/user/update"})
 public class UserController extends HttpServlet {
 
 	private RoleRepository roleRepository = null;
@@ -140,7 +140,7 @@ public class UserController extends HttpServlet {
 				req.getRequestDispatcher("/WEB-INF/views/user/user_add.jsp").forward(req, resp);
 			}
 			break;
-		case "/user/edit":
+		case "/user/update":
 			String fullName = req.getParameter("fullname");
 			String Email = req.getParameter("email");
 			String Avatar = req.getParameter("avatar");
@@ -165,9 +165,12 @@ public class UserController extends HttpServlet {
 			}
 			break;
 		case "/user/profile_edit":
+			int status_id = 0;
 			int id_task = Integer.valueOf(req.getParameter("task_id"));
-			int status_id = Integer.valueOf(req.getParameter("status_id"));
-			taskRepository.updateTaskById(id_task, status_id);
+			if(Integer.valueOf(req.getParameter("status_id")) != 0) {
+				status_id = Integer.valueOf(req.getParameter("status_id"));
+				taskRepository.updateTaskById(id_task, status_id);
+			}			
 			resp.sendRedirect(req.getContextPath() + "/user/info");
 			break;
 		default:

@@ -175,7 +175,8 @@
                                         <select class="form-control form-control-line" name="status_id">                                       
 										<%
 											for (Status status : listStatus) { %>
-                                            <option  value="<%= status.getId()%>"><%= status.getName() %></option>
+											<option value="0"> </option>
+                                            <option value="<%= status.getId()%>"><%= status.getName() %></option>
                                         <%} %>
                                         </select>
                                     </div>

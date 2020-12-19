@@ -148,7 +148,7 @@
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
-							<form class="form-horizontal form-material" method="POST" action="<%=request.getContextPath()%>/user/edit">
+							<form class="form-horizontal form-material" method="POST" action="<%=request.getContextPath()%>/user/update">
 								<div class="form-group">
 									<label class="col-md-12">Full Name</label>
 									<div class="col-md-12">

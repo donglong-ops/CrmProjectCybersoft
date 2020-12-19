@@ -45,7 +45,7 @@ public class AuthFilter implements Filter {
 //		// Dùng roleName để phân quyền
 		String roleName = user.getRoleName();
 		System.out.println("role hiện tại là : " + roleName);
-		if(action.startsWith("/role") && !roleName.equals("ROLE_Manager")) { //leader và member không truy cập role dc
+		if(action.startsWith("/role") && !roleName.equals("ROLE_Manager")) { 
 			resp.sendRedirect(req.getContextPath() + "/404");
 			return;
 		}
@@ -56,8 +56,9 @@ public class AuthFilter implements Filter {
 		}
 		if(action.equals("/user/view") && roleName.equals("ROLE_USER") || action.equals("/user/view") && roleName.equals("ROLE_Leader")  || 
 		   action.equals("/user/info") && roleName.equals("ROLE_USER") || action.equals("/user/info") && roleName.equals("ROLE_Leader")  ||
-		   action.equals("/user/edit") && roleName.equals("ROLE_USER") || action.equals("/user/edit") && roleName.equals("ROLE_Leader")  ||
-		   action.equals("/user/view") && roleName.equals("ROLE_Manager") || action.equals("/user/edit") && roleName.equals("ROLE_Manager")||
+		   action.equals("/user/profile_edit") && roleName.equals("ROLE_USER") ||
+		   action.equals("/user/update") && roleName.equals("ROLE_USER") || action.equals("/user/update") && roleName.equals("ROLE_Leader")  ||
+		   action.equals("/user/view") && roleName.equals("ROLE_Manager") || action.equals("/user/update") && roleName.equals("ROLE_Manager")||
 		   action.equals("/user/info") && roleName.equals("ROLE_Manager")) {
 			chain.doFilter(request, response);
 			return;

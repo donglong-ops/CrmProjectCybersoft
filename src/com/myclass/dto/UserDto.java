@@ -1,6 +1,6 @@
 package com.myclass.dto;
 
-public class UserDto { // test ở đây nè 
+public class UserDto { 
 	private int id;
 	private String email;
 	private String password;
